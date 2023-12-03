@@ -57,8 +57,6 @@ Open <a href="http://localhost:3030">http://localhost:3030</a> with your client 
 ### 🦾 Scripts
 
 - `npm run dev` — Starts the application in development mode at `http://localhost:3030`.
-- `npm run build` — Creates an optimized production build of your application.
-- `npm run start` — Starts the application in production mode.
 
 ## 🐞 Bugs, help, issues or new updates
 
