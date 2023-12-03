@@ -1,0 +1,33 @@
+POST http://localhost:3030/summarization
+Content-Type: application/json
+
+{
+  "title": "learn about node.js",
+  "link": "https://",
+  "startAt": 100,
+  "endAt": 300
+}
+
+###
+
+GET http://localhost:3030/summarization
+
+###
+
+GET http://localhost:3030/summarization?search=node
+
+###
+
+PUT http://localhost:3030/summarization/:id
+Content-Type: application/json
+
+{
+  "title": "learn about javascript",
+  "link": "https://",
+  "startAt": 100,
+  "endAt": 300
+}
+
+###
+
+DELETE http://localhost:3030/summarization/:id

@@ -2,6 +2,7 @@
   "name": "workshop-web-dev-backend",
   "version": "1.0.0",
   "description": "Back-end content that I built during the workshop I gave for 42 rio students.",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "dev": "node --watch ."
