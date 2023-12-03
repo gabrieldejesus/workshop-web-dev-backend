@@ -1,0 +1,14 @@
+{
+  "name": "workshop-web-dev-backend",
+  "version": "1.0.0",
+  "description": "Back-end content that I built during the workshop I gave for 42 rio students.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel de Jesus (@igabrieldejesus)",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^4.24.3"
+  }
+}
