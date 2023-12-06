@@ -1,4 +1,4 @@
-POST http://localhost:3030/summarization
+POST http://localhost:3030/summarizations
 Content-Type: application/json
 
 {
@@ -10,15 +10,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3030/summarization
+GET http://localhost:3030/summarizations
 
 ###
 
-GET http://localhost:3030/summarization?search=node
+GET http://localhost:3030/summarizations?search=node
 
 ###
 
-PUT http://localhost:3030/summarization/:id
+PUT http://localhost:3030/summarizations/:id
 Content-Type: application/json
 
 {
@@ -30,4 +30,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3030/summarization/:id
+DELETE http://localhost:3030/summarizations/:id
