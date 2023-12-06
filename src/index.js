@@ -11,6 +11,14 @@ const database = new Database();
 server.post("/summarizations", (request, response) => {
   const { title, link, startAt, endAt } = request.body;
 
+  /**
+   * Receber os dados do meu front-end
+   * Validar os dados recebidos do meu front-end
+   * Transformar o video do link em um áudio e salvar ele temporariamente na pasta public/audios
+   * Enviar o audio para a API do assemblyai e pegar o job id daquela tarefa
+   * Salvar o id do job no banco de dados
+   */
+
   database.create({ title: title, link: link, startAt: startAt, endAt: endAt });
 
   return response.status(201);
