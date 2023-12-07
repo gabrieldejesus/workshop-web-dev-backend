@@ -11,6 +11,9 @@
   "license": "MIT",
   "dependencies": {
     "@fastify/cors": "^8.4.2",
-    "fastify": "^4.24.3"
+    "fastify": "^4.24.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "ytdl-core": "^4.11.5",
+    "zod": "^3.22.4"
   }
 }
