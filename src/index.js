@@ -8,6 +8,8 @@ import { randomUUID } from "node:crypto";
 import { AssemblyAI } from "assemblyai";
 
 import { Database } from "./local-database.js";
+import getSummarizations from "./queries/get-summarizations.js";
+import createSummarization from "./queries/create-summarization.js";
 
 const server = Fastify();
 const assemblyAiClient = new AssemblyAI({
@@ -32,19 +34,26 @@ const audioSchema = z.object({
 server.post("/summarizations", async (request, response) => {
   /**
    * ✅ Receber os dados do meu front-end
-   * ✅ Validar os dados recebidos do meu back-end
+   * ✅ Validar os dados recebidos do meu front-end
    * ✅ Transformar o video do link em um áudio e salvar ele temporariamente na pasta public/audios
    * ✅ Enviar o audio para a API do assemblyai e pegar o resumo e transcrição
    * ✅ Salvar as informações do resumo no banco de dados local
    * ✅ Excluir o audio depois de criar a transcrição
+   *
+   * ✅ Criar o banco de dados PostgreSQL.
+   * ✅ Conexão do back-end com o bando de dados PostgreSQL.
+   * ✅ Salvar nossos dados no banco de dados.
+   *
+   * ✅ Pegar os resumos criados do banco de dados e retornar para o client
    */
 
   try {
     const { title, link, startAt, endAt } = request.body;
+    const validatedData = audioSchema.parse({ title, link, startAt, endAt });
 
-    const data = audioSchema.parse({ title, link, startAt, endAt });
-
-    const videoReadableStream = ytdl(data.link, { quality: "lowestaudio" });
+    const videoReadableStream = ytdl(validatedData.link, {
+      quality: "lowestaudio",
+    });
 
     const filename = `${randomUUID()}.mp3`;
     const outputFolder = "public/audios/";
@@ -53,8 +62,8 @@ server.post("/summarizations", async (request, response) => {
       .noVideo()
       .audioCodec("libmp3lame")
       .audioBitrate(128)
-      .seekInput(data.startAt)
-      .duration(data.endAt - data.startAt)
+      .seekInput(validatedData.startAt)
+      .duration(validatedData.endAt - validatedData.startAt)
       .format("mp3")
       .output(`${outputFolder}${filename}`);
 
@@ -73,14 +82,10 @@ server.post("/summarizations", async (request, response) => {
 
     const transcript = await assemblyAiClient.transcripts.transcribe(params);
 
-    database.create({
-      title: title,
-      link: link,
-      startAt: startAt,
-      endAt: endAt,
-      transcript: transcript.text,
-      summary: transcript.summary,
-    });
+    validatedData.transcript = transcript.text;
+    validatedData.summary = transcript.summary;
+
+    await createSummarization(validatedData);
 
     unlink(`${outputFolder}${filename}`, (err) => {
       if (err) return console.log(err);
@@ -93,9 +98,8 @@ server.post("/summarizations", async (request, response) => {
   }
 });
 
-server.get("/summarizations", (request, response) => {
-  const search = request.query.search;
-  const summarizations = database.list(search);
+server.get("/summarizations", async(request, response) => {
+  const summarizations = await getSummarizations();
 
   return response.status(200).send(summarizations);
 });
