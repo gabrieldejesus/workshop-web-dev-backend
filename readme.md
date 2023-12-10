@@ -15,6 +15,43 @@
 
 <br />
 
+## 📚 Notes
+
+<ul>
+  <li>
+    <strong>What is an API?</strong>
+
+    An interface that allows communication between different systems.
+  </li>
+  <li>
+    <strong>What is REST in the API context?</strong>
+    
+    An architectural pattern that can be used to build APIs.
+    
+    REST has 6 levels:
+      1. Uniformity
+      2. Decoupling
+      3. Statess
+      4. Cache
+      5. Layer architecture
+      6. Code on demand
+
+    Some benefits of the REST standard:
+      1. Standardization
+      2. Easy
+        2.1. Usage
+        2.2. Consumption
+        2.3. Maintenance
+  </li>
+
+ <li>
+    <strong>What is a RESTful API?</strong>
+
+    It is an API that meets the 6 levels of the REST standard.
+ </li>
+</ul>
+
+
 ## 🚀 Quick Start
 
 **Clone repository**
